@@ -1,0 +1,35 @@
+version: "3.8"
+
+networks:
+    db:
+        driver: bridge
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass124
+      # L'ho lasciato commentato in quanto ho deciso di inizializzarlo con il file di Sql
+      # MYSQL_DATABASE: Nome DB
+    networks:
+      db:
+    
+
+  #  - PMA_ARBITRARY=1 Serve per sceglierti un server in particolare
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - 7098:80
+    environment:
+      - PMA_HOST=mariadb
+      - PMA:PORT=3306
+    depends_on:
+      - mariadb
+    networks:
+      db:
