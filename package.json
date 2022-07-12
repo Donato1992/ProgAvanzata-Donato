@@ -1,5 +1,5 @@
 {
-  "name": "progettopr",
+  "name": "progettoaste",
   "version": "1.0.0",
   "description": "node express con sequelize",
   "proxy": "http://localhost:3000/",

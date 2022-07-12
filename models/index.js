@@ -41,8 +41,10 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 
-db.asta = require('./astaModello.js')(sequelize, DataTypes)
-db.rilanci = require('./rilanciAsta.js')(sequelize, DataTypes)
+db.user = require('./userModels.js')(sequelize, DataTypes)
+db.asta = require('./astaModels.js')(sequelize, DataTypes)
+db.pagamenti= require('./pagamentiModels.js')(sequelize,DataTypes)
+db.offer= require ('./offerModels.js')(sequelize, DataTypes)
 
 db.sequelize.sync({force: false})
 .then(()=> {
@@ -52,15 +54,38 @@ db.sequelize.sync({force: false})
 module.exports = db
 
 
-// Relazione uno a Molti nel database
+// Relazione uno a Molti nel database Asta-Utente
 
-db.products.hasMany(db.reviews, {
-    foreignKey: 'product_id',
-    as: 'review'
+db.user.hasMany(db.asta, {
+     foreignKey: 'UserID',
+     as: 'Bid'
+ })
+
+db.asta.belongsTo(db.user, {
+     foreignKey: 'UserID',
+     as: 'User'
+ })
+
+// Relazione uno a Molti nel database Offerta-Utente
+
+db.user.hasMany(db.offer, {
+    foreignKey: 'UserID',
+    as: 'Offer'
 })
 
-db.reviews.belongsTo(db.products, {
-    foreignKey: 'product_id',
-    as: 'product'
+db.offer.belongsTo(db.user, {
+      foreignKey: 'UserID',
+      as: 'User'
+  })
+
+// Relazione uno a Molti nel database Asta-Offerta
+
+db.asta.hasMany(db.offer, {
+     foreignKey: 'AstaID',
+     as: 'Offer'
 })
 
+db.offer.belongsTo(db.asta, {
+     foreignKey: 'AstaID',
+     as: 'Bid'
+ })

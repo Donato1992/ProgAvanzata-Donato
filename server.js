@@ -18,7 +18,10 @@ app.use(express.urlencoded({ extended:true }))
 //router
 
 const router= require('./routes/gestoreRoutes.js')
-app.use('/api/products', router)
+app.use('/api/aste', router)
+
+//Immagini Percorso
+app.use('/Images',express.static('./Images'))
 
 
 //testing api
@@ -37,6 +40,3 @@ const PORT = process.env.PORT || 8080
 app.listen(PORT, ()=>  {
     console.log('Server sta runnando sulla porta'+ PORT)
 })
-
-//Immagini Percorso
-app.use('/Images',express.static('./Images'))

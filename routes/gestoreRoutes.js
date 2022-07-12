@@ -1,21 +1,24 @@
-const productController = require ('../controller/productController.js')
-const reviewController = require ('../controller/reviewController.js')
+const astaController = require ('../controller/astaController.js')
+const offertaController = require ('../controller/offertaController')
 
 const router = require ('express').Router()
-router.post('/addProduct', productController.upload, productController.addProduct)
-router.get('/allProducts', productController.getAllProduct)
-router.get('/:id', productController.getOneProduct)
-router.put('/:id', productController.updateProduct)
-router.delete('/:id', productController.deleteProduct)
-router.get('/published', productController.getPublishedProduct)
+
+//Router per l'Asta
+router.post('/addAsta', astaController.upload, astaController.addAsta)
+//router.post('/addAsta', astaController.addAsta)
+router.get('/allAsta', astaController.getTutteAsta)
+router.get('/:id', astaController.getAsta)
+router.put('/:id', astaController.updateAsta)
+router.delete('/:id', astaController.deleteAsta)
+router.get('/pubblicata', astaController.getAstaPubblicata)
 
 
-//Review e Controller
-router.get('/allReviews', reviewController.getAllReviews)
-router.post('/addReview/:id', reviewController.addReview)
+//Offerta
+router.post('/addOfferta/:idu/:ida', offertaController.addOfferta)
+router.get('/allOfferta/:ida', offertaController.getAllOfferta)
 
-//Ottenere i Product Reviews
-router.get('/getProductReviews/:id', productController.getProductReviews)
+//Ottenere Tutte le Aste di Un Utente
+router.get('/getAstaOfferta/:id', astaController.getAstaOfferta)
 
 
 module.exports = router
