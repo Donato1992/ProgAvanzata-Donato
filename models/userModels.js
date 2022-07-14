@@ -1,7 +1,7 @@
 module.exports =(sequelize, DataTypes) => {
 
     const User= sequelize.define ("user", {
-        name: {
+        nome: {
             type: DataTypes.STRING,
         },
         cognome: {
@@ -12,9 +12,9 @@ module.exports =(sequelize, DataTypes) => {
             type: DataTypes.TEXT
         },
         wallet: {
-            type: DataTypes.FLOAT
+            type: DataTypes.STRING
         },
-		bidId: { 
+		role: { 
 			type:DataTypes.STRING,
 			allowNull: false
         }

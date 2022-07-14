@@ -1,29 +1,34 @@
 module.exports =(sequelize, DataTypes) => {
 
     const Bid= sequelize.define("bid", {
-        image: {
-            type: DataTypes.STRING,
-        },
-        type: {
-            type: DataTypes.STRING,
-        },
         title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        price: {
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        price_open: {
             type: DataTypes.INTEGER
         },
         description: {
             type: DataTypes.TEXT
         },
-        published: {
-            type: DataTypes.BOOLEAN
-        },
-		BidTime:{
+		bidTime:{
 			type:DataTypes.DATE,
 			allowNull:false
 		},
+        price_now: {
+            type: DataTypes.INTEGER
+        },
+        state: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        winner:{
+            type:DataTypes.INTEGER
+        }
 		
 		
     })

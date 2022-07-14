@@ -1,8 +1,8 @@
 const db = require ('../models')
-
-//caricamento immagini
-const multer=require('multer')
-const path =require('path')
+const { Op } = require("sequelize");
+const jwt = require('jsonwebtoken');
+const axios = require('axios').default;
+require('dotenv').config()
 
 //Creao il Main del Controller
 const Asta= db.asta
@@ -12,21 +12,23 @@ const Offerta= db.offer
 
 //Creazione Asta
 const addAsta=  async (req, res)=> {
+    console.log('AGGIUNGO ASTACAZZOOO--->'+Object.keys(req.user.utente))
+    console.log("SONO DENTRO ADDASTA")
     let info = {
-        image: req.file.path,
         title: req.body.title,
         type: req.body.type,
-        price: req.body.price,
-        description: req.body.description,
-        published: req.body.published ? req.body.published:false,
-        BidTime: req.body.BidTime,
-        UserID: req.body.UserID
+        price_open: req.body.price_open,
+        description: req.user.utente.nome,
+        bidTime: req.body.bidTime,
+        price_now: req.body.price_open,
+        state: req.body.state,
+        UserID: req.user.utente.id
+        
     }
-
-    console.log("SIAMO QUI"+info.image)
+    console.log('VEDIAMO LE INFOOOO'+info.title)
     const asta = await Asta.create(info)
     res.status(200).send(asta)
-    console.log(asta)
+    //console.log(asta)
 }
 
 //Ottenere Tutte Le Aste
@@ -37,10 +39,22 @@ const getTutteAsta = async (req, res) => {
 
 //Ottenere una sola Asta
 const getAsta = async (req, res) => {
+    console.log("SONO DENTRO GETASTA")
     let tipo = req.params.type
     let asta =await Asta.findOne({where: {type: tipo}})
     res.status(200).send(asta)
 }
+
+//Ottenere asta in base allo stato Asta
+const getStateAsta = async (req, res) => {
+    let asta =await Asta.findAll({where: {[Op.or]:[
+        {state:'aperta'},
+        {state:'in esecuzione'},
+        {state:'terminate'} 
+    ]}})
+    res.status(200).send(asta)
+}
+
 
 //Update Asta
 const updateAsta = async (req, res) => {
@@ -84,32 +98,27 @@ const getAstaOfferta =  async (req, res) => {
 
 }
 
-//Caricamento di un Immagine
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'Images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
-    }
-})
+// Relazione Uno a  Molti
 
+const getApertaAstaOfferta =  async (req, res) => {
 
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: '1000000' },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /jpeg|jpg|png|gif/
-        const mimeType = fileTypes.test(file.mimetype)  
-        const extname = fileTypes.test(path.extname(file.originalname))
-        console.log("ADESSO VEDI"+mimeType)
+    const stato='aperta'
+    console.log("MIO STATOOOO---->"+stato)
 
-        if(mimeType && extname) {
-            return cb(null, true)
-        }
-        cb('Solo Immagini Supportate')
-    }
-}).single('image')
+    const data = await Asta.findAll({
+        include: [{
+            model: Offerta,
+            // Per Esempio as Bid è La chiave primaria dove fare il Join che è presente nel Index
+            // della cartella Model
+            as: 'Offer'
+        }],
+        where: {state:stato}
+        
+    })
+    console.log(data)
+    res.status(200).send(data)
+
+}
 
 module.exports = {
     addAsta,
@@ -119,5 +128,6 @@ module.exports = {
     updateAsta,
     deleteAsta,
     getAstaOfferta,
-    upload
+    getStateAsta,
+    getApertaAstaOfferta
 }

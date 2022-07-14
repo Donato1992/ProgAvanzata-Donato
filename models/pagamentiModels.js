@@ -1,18 +1,17 @@
 module.exports =(sequelize, DataTypes) => {
 
     const Payment= sequelize.define("payment", {
-        PaymentID: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        UserID: {
+        userID: {
             type: DataTypes.STRING,
 			allowNull: false
         },
-		BidId : {
+		bidId : {
             type: DataTypes.STRING,
 			allowNull: false
         },
+        state: {
+            type: DataTypes.STRING
+        }
 		
     })
     return Payment
