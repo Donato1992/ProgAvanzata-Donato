@@ -1,5 +1,8 @@
 const dbConfig =  require('../config/dbConfig.js');
 const mysql = require('mysql2/promise');
+const jwt = require('jsonwebtoken');
+const axios = require('axios').default;
+require('dotenv').config()
 
 const {Sequelize, DataTypes} = require ('sequelize');
 const { QueryTypes } = require('sequelize');
@@ -44,7 +47,6 @@ db.sequelize = sequelize
 
 db.user = require('./userModels.js')(sequelize, DataTypes)
 db.asta = require('./astaModels.js')(sequelize, DataTypes)
-db.pagamenti= require('./pagamentiModels.js')(sequelize,DataTypes)
 db.offer= require ('./offerModels.js')(sequelize, DataTypes)
 
 db.sequelize.sync({force: false})
@@ -56,13 +58,13 @@ db.sequelize.sync({force: false})
 module.exports = db
 
 
-// Relazione uno a Molti nel database Asta-Utente
+
 
 // Relazione uno a Molti nel database Asta-Utente
 
 db.user.hasMany(db.asta, {
     foreignKey: 'UserID',
-    as: 'BidC'
+    as: 'AuctionC'
 })
 
 db.asta.belongsTo(db.user, {
@@ -76,7 +78,7 @@ db.asta.belongsTo(db.user, {
 
 db.user.hasMany(db.asta, {
      foreignKey: 'winner',
-     as: 'Bid'
+     as: 'Auction'
  })
 
 db.asta.belongsTo(db.user, {
@@ -105,14 +107,20 @@ db.asta.hasMany(db.offer, {
 
 db.offer.belongsTo(db.asta, {
      foreignKey: 'AstaID',
-     as: 'Bid'
+     as: 'Auction'
  })
 
+//Creo il token del mio wallet
+let wallet=100
+const token=jwt.sign({wallet}, process.env.ACCESS_TOKEN_WALLET)
+console.log('Mio Token---->'+token)
 //Utilizzo IGNORE per Bypassare il Prolema dei valori già esistenti
 const miaquery="INSERT IGNORE INTO `users` (`id`, `nome`, `cognome`, `email`, `wallet`, `role`, `createdAt`, `updatedAt`) "+
-"VALUES (1, 'Donato', 'Di Zinno', 'dizinno@gmail.com', 100, 'admin', '2022-07-13 15:17:44', '2022-07-13 15:17:44'),"+
-" (2, 'Alessio', 'Brugiavini', 'alessiob@gmail.com', 100, 'bid-creator', '2022-07-13 15:19:08', '2022-07-13 15:19:08'),"+
-"(3, 'Massimo', 'Puntavo', 'puntatamax@gmail.com', 100, 'bid-partecipant', '2022-07-13 15:20:11', '2022-07-13 15:20:11')";
+"VALUES (1, 'Donato', 'Di Zinno', 'dizinno@gmail.com','"+token+"', 'admin', '2022-07-13 15:17:44', '2022-07-13 15:17:44'),"+
+" (2, 'Alessio', 'Brugiavini', 'alessiob@gmail.com', '"+token+"', 'bid-creator', '2022-07-13 15:19:08', '2022-07-13 15:19:08'),"+
+"(3, 'Massimo', 'Puntavo', 'puntatamax@gmail.com', '"+token+"', 'bid-partecipant', '2022-07-13 15:20:11', '2022-07-13 15:20:11')";
 async function start() {
     await sequelize.query(miaquery, { type: QueryTypes.INSERT });
+    //await Asta.create(info)
+    
 }

@@ -30,7 +30,7 @@ const provaPost= async(req, res) => {
 //Qui vado a fare il Login Prendendo i dati dell'utente che è loggato
 const getLogin=async (req, res) => {
   // Prendo L'utente
-  //La proprietà Raw mi permette di avere un
+  //La proprietà Raw mi permette di avere un Json
   let utente =await User.findOne({where: {id: req.params.idacc}, raw:true})
   console.log("Ruolo Preso"+utente.nome)
 
@@ -51,7 +51,7 @@ const verify = (req, res, next) => {
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, nome) => {
       if (err) {
-        return res.status(403).json("Token is not valid!");
+        return res.status(403).json("Token Non Valido!");
       }
 
       // Qui Setto l'utente che ho codificato
@@ -59,7 +59,7 @@ const verify = (req, res, next) => {
       next();
     });
   } else {
-    res.status(401).json("You are not authenticated!");
+    res.status(401).json("Non sei Autorizzato ad accedere a questa Area!");
   }
 };
 

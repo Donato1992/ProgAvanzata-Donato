@@ -23,13 +23,13 @@ const addOfferta = async (req, res) => {
     }
     if (wallet>=data.price)
     {
-        console.log("Mio Wallet-->"+wallet)
+        console.log("Mio Wallet-->"+wallet+data.UserID)
         const offerta = await Offerta.create(data)
         res.status(200).send(offerta)
     }
     else
     {
-        console.log("Mio Wallet-->"+wallet)
+        console.log("Mio Wallet-->"+data.price)
         res.status(403).send("Credito Insufficiente")   
     }
 
@@ -42,22 +42,32 @@ const addOffertaToken = async (req, res) => {
 
     //console.log("SONO Vedi User----->>>"+Object.keys(req.user.utente))
     const iduser = req.user.utente.id
+    console.log("UTENTE CHE AGGIUNGE L'ASTA--->"+iduser)
     const wallet=req.user.utente.wallet
     const idasta = req.params.ida
 
-    const token=jwt.sign({wallet}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '240s' })
-    console.log('Mio Token'+token)
+    const credito=jwt.verify(wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
+        if (err) {
+          return res.status(403).json("Token is not valid!");
+        }
+  
+        // Qui Setto l'utente che ho codificato
+        //req.user = portafoglio;
+        console.log("DECRIPTO PORTAFOGLIO--->"+portafoglio.wallet)
+        return portafoglio.wallet
+      });
     
 
-
+    
+      console.log("DECRIPTO PORTAFOGLIO DUEEEE--->"+credito)
     let data = {
         UserID: iduser,
         AstaID: idasta,
         price: req.body.price,
     }
-    if (wallet>=data.price)
+    if (credito>=data.price)
     {
-        console.log("Mio Wallet-->"+wallet)
+        console.log("Mio Wallet-->"+wallet+data.UserID)
         const offerta = await Offerta.create(data)
         res.status(200).send(offerta)
     }
@@ -87,5 +97,6 @@ const getAllOfferta = async (req, res) => {
 
 module.exports = {
     addOfferta,
-    getAllOfferta
+    getAllOfferta,
+    addOffertaToken
 }

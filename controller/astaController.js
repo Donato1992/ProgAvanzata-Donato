@@ -1,5 +1,5 @@
 const db = require ('../models')
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 const jwt = require('jsonwebtoken');
 const axios = require('axios').default;
 require('dotenv').config()
@@ -7,19 +7,19 @@ require('dotenv').config()
 //Creao il Main del Controller
 const Asta= db.asta
 const User= db.user
-const Pagamenti= db.pagamenti
 const Offerta= db.offer
 
 //Creazione Asta
 const addAsta=  async (req, res)=> {
     console.log('AGGIUNGO ASTACAZZOOO--->'+Object.keys(req.user.utente))
-    console.log("SONO DENTRO ADDASTA")
+    console.log("SONO DENTRO ADDASTA---->"+req.user.utente.id)
     let info = {
         title: req.body.title,
         type: req.body.type,
         price_open: req.body.price_open,
-        description: req.user.utente.nome,
-        bidTime: req.body.bidTime,
+        description: req.body.description,
+        auctionTimeStart: req.body.auctionTimeStart,
+        auctionTimeFinish: req.body.auctionTimeFinish,
         price_now: req.body.price_open,
         state: req.body.state,
         UserID: req.user.utente.id
@@ -48,9 +48,9 @@ const getAsta = async (req, res) => {
 //Ottenere asta in base allo stato Asta
 const getStateAsta = async (req, res) => {
     let asta =await Asta.findAll({where: {[Op.or]:[
-        {state:'aperta'},
+        {state:'non aperta'},
         {state:'in esecuzione'},
-        {state:'terminate'} 
+        {state:'terminata'} 
     ]}})
     res.status(200).send(asta)
 }
@@ -102,7 +102,7 @@ const getAstaOfferta =  async (req, res) => {
 
 const getApertaAstaOfferta =  async (req, res) => {
 
-    const stato='aperta'
+    const stato='in esecuzione'
     console.log("MIO STATOOOO---->"+stato)
 
     const data = await Asta.findAll({
@@ -120,6 +120,34 @@ const getApertaAstaOfferta =  async (req, res) => {
 
 }
 
+const addProposta= async (req, res)=> {
+    const id_asta=req.params.ida
+    
+    let info={
+        nuova_proposta:req.body.nuova_proposta
+    }
+    const proposta = await Asta.update(info, {where: {id: id_asta}})
+    res.status(200).send(proposta)
+}
+
+
+const prova =  async (req, res) => {
+
+    const tipo_asta= req.params.tipo
+    const data = await Asta.findAll({
+        include: [{
+            model: Offerta,
+            // Per Esempio as Bid è La chiave primaria dove fare il Join che è presente nel Index
+            // della cartella Model
+            as: 'Offer'
+        }],
+        where: {type:tipo_asta}
+        
+    })
+    console.log(data)
+    res.status(200).send(data)
+}
+
 module.exports = {
     addAsta,
     getAsta,
@@ -129,5 +157,7 @@ module.exports = {
     deleteAsta,
     getAstaOfferta,
     getStateAsta,
-    getApertaAstaOfferta
+    getApertaAstaOfferta,
+    addProposta,
+    prova
 }

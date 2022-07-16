@@ -14,6 +14,8 @@ services:
         - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: pass124
+      MYSQL_INITDB_SKIP_TZINFO: 1
+      TZ: Europe/Berlin
       # L'ho lasciato commentato in quanto ho deciso di inizializzarlo con il file di Sql
       # MYSQL_DATABASE: Nome DB
     networks:

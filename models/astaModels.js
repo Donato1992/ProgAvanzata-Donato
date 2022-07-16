@@ -1,6 +1,6 @@
 module.exports =(sequelize, DataTypes) => {
 
-    const Bid= sequelize.define("bid", {
+    const Auction= sequelize.define("auction", {
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -15,7 +15,11 @@ module.exports =(sequelize, DataTypes) => {
         description: {
             type: DataTypes.TEXT
         },
-		bidTime:{
+		auctionTimeStart:{
+			type:DataTypes.DATE,
+			allowNull:false
+		},
+        auctionTimeFinish:{
 			type:DataTypes.DATE,
 			allowNull:false
 		},
@@ -28,9 +32,12 @@ module.exports =(sequelize, DataTypes) => {
         },
         winner:{
             type:DataTypes.INTEGER
+        },
+        nuova_proposta:{
+            type:DataTypes.STRING
         }
 		
 		
     })
-    return Bid
+    return Auction
 }
