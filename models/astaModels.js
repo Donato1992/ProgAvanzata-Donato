@@ -1,3 +1,6 @@
+/*
+        In questa sezione vado a stabilire come saranno composte le mie tabelle del Database Asta
+*/
 module.exports =(sequelize, DataTypes) => {
 
     const Auction= sequelize.define("auction", {
@@ -34,7 +37,7 @@ module.exports =(sequelize, DataTypes) => {
             type:DataTypes.INTEGER
         },
         nuova_proposta:{
-            type:DataTypes.STRING
+            type:DataTypes.INTEGER
         }
 		
 		

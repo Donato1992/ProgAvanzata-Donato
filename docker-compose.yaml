@@ -20,6 +20,8 @@ services:
       # MYSQL_DATABASE: Nome DB
     networks:
       db:
+  
+  
     
 
   #  - PMA_ARBITRARY=1 Serve per sceglierti un server in particolare

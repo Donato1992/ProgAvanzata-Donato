@@ -28,7 +28,7 @@ const sequelize = new Sequelize (
 )
 
 
-
+// Mi connetto al Database
 
 sequelize.authenticate().then(() => {
     console.log('connessione...')
@@ -44,7 +44,9 @@ const db ={}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
-
+/*
+        Mi vado a prendere tutte le mie tabelle e le vado a creare
+*/
 db.user = require('./userModels.js')(sequelize, DataTypes)
 db.asta = require('./astaModels.js')(sequelize, DataTypes)
 db.offer= require ('./offerModels.js')(sequelize, DataTypes)
@@ -60,7 +62,7 @@ module.exports = db
 
 
 
-// Relazione uno a Molti nel database Asta-Utente
+// Relazione uno a Molti nel database Asta-Utente (foreign key)
 
 db.user.hasMany(db.asta, {
     foreignKey: 'UserID',
@@ -74,7 +76,7 @@ db.asta.belongsTo(db.user, {
 
 
 
-// Relazione uno a Molti nel database Asta-Utente-Winner
+// Relazione uno a Molti nel database Asta-Utente-Winner (foreign key)
 
 db.user.hasMany(db.asta, {
      foreignKey: 'winner',
@@ -86,7 +88,7 @@ db.asta.belongsTo(db.user, {
      as: 'User'
  })
 
-// Relazione uno a Molti nel database Offerta-Utente
+// Relazione uno a Molti nel database Offerta-Utente (foreign key)
 
 db.user.hasMany(db.offer, {
     foreignKey: 'UserID',
@@ -98,7 +100,7 @@ db.offer.belongsTo(db.user, {
       as: 'User'
   })
 
-// Relazione uno a Molti nel database Asta-Offerta
+// Relazione uno a Molti nel database Asta-Offerta (foreign key)
 
 db.asta.hasMany(db.offer, {
      foreignKey: 'AstaID',
@@ -110,10 +112,19 @@ db.offer.belongsTo(db.asta, {
      as: 'Auction'
  })
 
-//Creo il token del mio wallet
+
+
+ //Creo il token del mio wallet iniziale
 let wallet=100
 const token=jwt.sign({wallet}, process.env.ACCESS_TOKEN_WALLET)
 console.log('Mio Token---->'+token)
+
+
+/*
+        Nella parte sottostante eseguo una query iniziale inizializzando delle tipologie di utenti per il testing
+        del progetto
+*/
+
 //Utilizzo IGNORE per Bypassare il Prolema dei valori già esistenti
 const miaquery="INSERT IGNORE INTO `users` (`id`, `nome`, `cognome`, `email`, `wallet`, `role`, `createdAt`, `updatedAt`) "+
 "VALUES (1, 'Donato', 'Di Zinno', 'dizinno@gmail.com','"+token+"', 'admin', '2022-07-13 15:17:44', '2022-07-13 15:17:44'),"+
