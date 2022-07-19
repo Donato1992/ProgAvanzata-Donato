@@ -1,0 +1,32 @@
+{
+	"info": {
+		"_postman_id": "2ace0963-aba0-48d8-a7d0-299c3c617f68",
+		"name": "AvviaAsta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "avvioAsta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/avvioAsta/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"avvioAsta",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

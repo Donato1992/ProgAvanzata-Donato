@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "877a3525-929b-47ef-8894-973b7623b060",
+		"name": "Aggiungi Asta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Aggiungi Nuova Asta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjIsIm5vbWUiOiJBbGVzc2lvIiwiY29nbm9tZSI6IkJydWdpYXZpbmkiLCJlbWFpbCI6ImFsZXNzaW9iQGdtYWlsLmNvbSIsIndhbGxldCI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUozWVd4c1pYUWlPakV3TUN3aWFXRjBJam94TmpVM09URXpPREkxZlEudEg2alVTZnEtVGNZSnRDNW5GTl9iX2RTUnFkVC1CSHNfSHNvMDQ2VVZMYyIsInJvbGUiOiJiaWQtY3JlYXRvciIsImNyZWF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MTk6MDguMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MTk6MDguMDAwWiJ9LCJpYXQiOjE2NTgwNjI3MTcsImV4cCI6MTY1ODA2Mjk1N30.AfHr13JEIR132_jlwvQt1FT-TzGSjWDRcCmirxMwxbs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"title\": \"Asta Nuova\",\n        \"type\": \"AsTa Inglese\",\n        \"price_open\": \"550\",\n        \"description\": \"Prodotto Nuovissimo Olandese MIAAA\",\n        \"auctionTimeStart\": \"2022-07-17 22:18:26\",\n        \"auctionTimeFinish\": \"2022-07-17 22:19:26\",\n        \"state\": \"terminata\"\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/addAsta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"addAsta"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
