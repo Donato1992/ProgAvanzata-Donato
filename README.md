@@ -64,7 +64,7 @@ La gestione delle rotte, è stata implementata utilizzando la classe Router dell
 
 ## Documentazione tecnica
 
-L'applicazione è avviabile nella sua interezza attraverso il comando docker-compose -f docker-compose.yaml up da lanciare nella root del progetto, e poi lanciando node server.js sempre dalla root di progetto. Nella versione di sviluppo vengono avviati i seguenti servizi:
+L'applicazione è avviabile nella sua interezza attraverso il comando docker-compose -f docker-compose.yaml up da lanciare nella root del progetto, e poi si lancia il comando npm start in una nuova shell, sempre dalla root di progetto. Nella versione di sviluppo vengono avviati i seguenti servizi:
 -	MySql: porta 7098
 -	Node: porta 8080
 
