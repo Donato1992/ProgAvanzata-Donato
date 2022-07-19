@@ -72,6 +72,8 @@ Le richieste implementate richiedono un’autenticazione attraverso token JWT, s
 Tutte le richieste sono state testate attraverso Postman.
 Durante il testing delle chiamate, al posto di /:idclasse inserire il numero id relativo alla classe che si vuole testare. 
 
+Nella cartella PostmanCollection si possono importare tutte le chiamate effettuate durante la fase di test.
+
 
 | Method | Name                                          | Url                                                                                              | Status |
 |--------|-----------------------------------------------|--------------------------------------------------------------------------------------------------|--------|
