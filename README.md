@@ -1,8 +1,8 @@
 # Progetto di Programmazione Avanzata 2022
 
 L’applicazione permette agli utenti di utilizzare un sistema che consente di gestire delle aste. 
-•	Brugiavini Alessio
-•	Di Zinno Donato
+-Brugiavini Alessio
+-Di Zinno Donato
 
 Il lavoro è stato svolto totalmente a distanza per via della distanza geografica. Abbiamo comunicato tramite Microsoft Teams, sfruttando la condivisione schermo per lavorare in maniera più fluida. Tutto lo sviluppo è stato riportato sul repository di GitHub, come visibili dallo storico dei commits.
 
@@ -53,16 +53,16 @@ La gestione delle rotte, è stata implementata utilizzando la classe Router dell
 
 ## Pattern utilizzati
 
-•	**Middleware**: Permette, all'interno delle rotte, di gestire l'autenticazione degli utenti tramite token JWT.
-•	**MVC**: Usato per gestire la struttura del backend.
+1)	**Middleware**: Permette, all'interno delle rotte, di gestire l'autenticazione degli utenti tramite token JWT.
+2)  **MVC**: Usato per gestire la struttura del backend.
 
 
 
 ## Documentazione tecnica
 
 L'applicazione è avviabile nella sua interezza attraverso il comando docker-compose -f docker-compose.yaml up da lanciare nella root del progetto, e poi lanciando node server.js sempre dalla root di progetto. Nella versione di sviluppo vengono avviati i seguenti servizi:
-•	MySql: porta 7098
-•	Node: porta 8080
+-	MySql: porta 7098
+-	Node: porta 8080
 
 Le richieste implementate richiedono un’autenticazione attraverso token JWT, si possono utilizzare quelli contenuti nel file .env
 Tutte le richieste sono state testate attraverso Postman.
