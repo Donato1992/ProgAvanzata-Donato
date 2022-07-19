@@ -70,6 +70,8 @@ L'applicazione è avviabile nella sua interezza attraverso il comando docker-com
 
 Le richieste implementate richiedono un’autenticazione attraverso token JWT, si possono utilizzare quelli contenuti nel file .env
 Tutte le richieste sono state testate attraverso Postman.
+Dutante il testing delle chiamate, al posto di /:idclasse inserire il numero id relativo alla classe che si vuole testare. 
+
 
 | Method | Name                                 | Url                                                                                              | Status | Time  |
 |--------|--------------------------------------|--------------------------------------------------------------------------------------------------|--------|-------|
