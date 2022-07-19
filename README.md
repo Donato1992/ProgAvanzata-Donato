@@ -73,34 +73,28 @@ Tutte le richieste sono state testate attraverso Postman.
 Durante il testing delle chiamate, al posto di /:idclasse inserire il numero id relativo alla classe che si vuole testare. 
 
 
-| Method | Name                                 | Url                                                                                              | Status | Time  |
-|--------|--------------------------------------|--------------------------------------------------------------------------------------------------|--------|-------|
-| GET    | Base Test                            | http://localhost:3000                                                                            | 200    | 3 ms  |
-| GET    | Auth Test                            | http://localhost:3000/api                                                                        | 200    | 6 ms  |
-| POST   | New Job                              | http://localhost:3000/api/newJob                                                                 | 200    | 18 ms |
-| GET    | Job Status                           | http://localhost:3000/api/getJobStatus/62a86a015b47a2244de5b2b5                                  | 200    | 9 ms  |
-| GET    | Job Info                             | http://localhost:3000/api/getJobInfo/62a86a015b47a2244de5b2b5                                    | 200    | 9 ms  |
-| GET    | History                              | http://localhost:3000/api/getHistory                                                             | 200    | 38 ms |
-| GET    | History \(with time params\)         | http://localhost:3000/api/getHistory?t\_min=2022\-06\-14T13:24:36Z&t\_max=2022\-06\-14T14:24:36Z | 200    | 36 ms |
-| GET    | Check User Credit                    | http://localhost:3000/api/getUserCredit                                                          | 200    | 8 ms  |
-| GET    | Check User Credit Copy               | http://localhost:3000/api/getUserCredit                                                          | 200    | 11 ms |
-| GET    | Charge Credit                        | http://localhost:3000/api/chargeCredit?user\_email=lorenzodag@example\.com&amount=10             | 200    | 12 ms |
-| GET    | Auth Test \(NO AUTH\)                | http://localhost:3000/api                                                                        | 403    | 2 ms  |
-| GET    | Auth Test \(EMPTY AUTH\)             | http://localhost:3000/api                                                                        | 403    | 5 ms  |
-| GET    | Auth Test \(INVALID TOKEN\)          | http://localhost:3000/api                                                                        | 403    | 2 ms  |
-| GET    | Auth Test \(WRONG JWT KEY\)          | http://localhost:3000/api                                                                        | 403    | 4 ms  |
-| GET    | Auth Test \(USER NOT FOUND\)         | http://localhost:3000/api                                                                        | 403    | 7 ms  |
-| GET    | Job Status \(INVALID ID\)            | http://localhost:3000/api/getJobStatus/62a86a015b474de5b2b5                                      | 400    | 6 ms  |
-| GET    | Job Info \(INVALID ID\)              | http://localhost:3000/api/getJobInfo/62a86a015b474de5b2b5                                        | 400    | 5 ms  |
-| GET    | History \(USER W/O JOBS\)            | http://localhost:3000/api/getHistory                                                             | 200    | 7 ms  |
-| GET    | Charge Credit \(NO ADMIN\)           | http://localhost:3000/api/chargeCredit?user\_email=lorenzodag@example\.com&amount=1              | 403    | 9 ms  |
-| GET    | Charge Credit \(MISSING QUERY\)      | http://localhost:3000/api/chargeCredit                                                           | 400    | 5 ms  |
-| GET    | Charge Credit \(NEGATIVE AMOUNT\)    | http://localhost:3000/api/chargeCredit?user\_email=lorenzodag@example\.com&amount=\-1            | 400    | 7 ms  |
-| GET    | Charge Credit \(WRONG EMAIL\)        | http://localhost:3000/api/chargeCredit?user\_email=emailnonesistente@example\.com&amount=1       | 400    | 8 ms  |
-| POST   | New Job \(NOT ENOUGH CREDIT\)        | http://localhost:3000/api/newJob                                                                 | 401    | 10 ms |
-| POST   | New Job \(MISSING sess\_id\)         | http://localhost:3000/api/newJob                                                                 | 400    | 6 ms  |
-| POST   | New Job \(MISSING n\_pred\)          | http://localhost:3000/api/newJob                                                                 | 400    | 7 ms  |
-| POST   | New Job \(MISSING given\_points\)    | http://localhost:3000/api/newJob                                                                 | 400    | 8 ms  |
-| POST   | New Job \(given\_points EMPTY LIST\) | http://localhost:3000/api/newJob                                                                 | 400    | 4 ms  |
-| POST   | New Job \(given\_points LEN=1\)      | http://localhost:3000/api/newJob                                                                 | 400    | 6 ms  |
-| POST   | New Job \(INVALID POINTS\)           | http://localhost:3000/api/newJob                                                                 | 400    | 6 ms  |
+| Method | Name                                          | Url                                                                                              | Status |
+|--------|-----------------------------------------------|--------------------------------------------------------------------------------------------------|--------|
+| POST   | Aggiungere asta                               | http://localhost:8080/api/aste/addAsta                                                           | 200    |
+| PUT    | Avvio Asta                                    | http://localhost:8080/api/aste/avvioAsta/:idasta                                                 | 200    |
+| POST   | Aggiungere Offerta                            | http://localhost:8080/api/aste/addOffertaToken/:idasta                                           | 200    |
+| PUT    | Aggiungere Proposta                           | http://localhost:8080/api/aste/addProposta/:idasta                                               | 200    |
+| PUT    | Ricarica conto Utente                         | http://localhost:8080/api/aste/ricarica/:idutente                                		    | 200    |
+| PUT    | Round                                         | http://localhost:8080/api/aste/roundAsta/:idasta                                                 | 200    |
+| PUT    | Scalare Conto                                 | http://localhost:8080/api/aste/ScalaConto/:idasta						    | 200    |
+| GET    | Spesa Effettuata                              | http://localhost:8080/api/aste/spesaEffettuata                                                   | 200    |
+| GET    | Statistiche Asta                              | http://localhost:8080/api/aste/statisticheAsta                                                   | 200    |
+| GET    | Storico Periodo                               | hhttp://localhost:8080/api/aste/storico      						    | 200    | 
+| GET    | Credito Residuo                               | http://localhost:8080/api/aste/creditoResiduo                                                    | 200    | 
+| POST   | Vincita Asta             		         | http://localhost:8080/api/aste/vincitaAsta                                                       | 200    | 
+| GET    | Visualizza Stato Asta         	         | http://localhost:8080/api/aste/stateAsta                                                         | 200    |
+| GET    | Aste Aperte            		         | http://localhost:8080/api/aste/getApertaAstaOfferta                                              | 200    |
+| POST   | Login		                         | http://localhost:8080/api/aste/login/idautente                                                   | 200    |
+| POST   | Login \(Token non valido\)                    | http://localhost:8080/api/aste/login/idautente                                                   | 403    |
+| POST   | Login \(Utente Non Autorizzato\)            	 | http://localhost:8080/api/aste/login/idautente                                                   | 401    |
+| POST   | Aggiungere Offerta \(Token non valido\)       | http://localhost:8080/api/aste/addOffertaToken/:idasta                                           | 403    |
+| POST   | Aggiungere Offerta \(Credito Insufficiente\)  | http://localhost:8080/api/aste/addOffertaToken/:idasta                                           | 403    |
+| POST   | Aggiungere asta \(Messagge Error\)            | http://localhost:8080/api/aste/addAsta                                                           | 400    |
+| GET    | Credito Residuo \(Token non valido\)          | http://localhost:8080/api/aste/creditoResiduo                                                    | 403    |
+| PUT    | Ricarica conto Utente \(Token non valido\)    | http://localhost:8080/api/aste/ricarica/:idutente                                		    | 403    |
+| PUT    | Scalare Conto \(Token non valido\)            | http://localhost:8080/api/aste/ScalaConto/:idasta						    | 403    | 
