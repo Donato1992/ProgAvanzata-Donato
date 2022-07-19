@@ -6,7 +6,7 @@ L’applicazione permette agli utenti di utilizzare un sistema che consente di g
 
 Il lavoro è stato svolto totalmente a distanza per via della distanza geografica. Abbiamo comunicato tramite Microsoft Teams, sfruttando la condivisione schermo per lavorare in maniera più fluida. Tutto lo sviluppo è stato riportato sul repository di GitHub, come visibili dallo storico dei commits.
 
-##Use case
+## Use case
 
 Tramite il diagramma “Use case” sono stati modellati i requisiti richiesti nelle specifiche di progetto.
 A sinistra del diagramma ci sono due tipologie di utenti: **Bid partecipant** e **Bid creator** (estensione dell’user) e **Admin**.
@@ -25,7 +25,7 @@ Queste richieste interagiscono con degli attori interni, che sono: il framework 
 •	**Auction history**: permette di vedere lo storico delle aste e quelle che si sono aggiudicate (Bid partecipant)
 
 
-##Schema ER Database
+## Schema ER Database
 
 Lo schema Entità Relazione del database progettato prevede 4 tabelle:
 •	**Users** : contente le informazioni di ogni utente
@@ -35,14 +35,14 @@ Lo schema Entità Relazione del database progettato prevede 4 tabelle:
 ![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/DB.png)
 
 
-##MySql
+## MySql
 
 La scelta di utilizzare MySql deriva dal fatto che non abbiamo una grande quantità di dati da gestire, ed è più semplice da utilizzare per via della presenza della GUI. Inoltre è essendo uno strumento flessibile e scalabile, è utile nelle applicazioni web per quanto riguarda il lungo periodo.
 Considerando il nostro DB, abbiamo la tabella user che rappresenta i dati dei singoli utenti, con un attributo ruolo che descrive appunto ciò che poi l’utente può fare o meno.
 La tabella Auctions contiene tutto ciò che è relativo ad un asta, l’attributo nuova proposta è relativo alla possibilità di effettuare un compra subito.
 
 
-##UML
+## UML
 
 Prima di andare a strutturare il backend Node, Express, Postman abbiamo definito i modelli del nostro sistema di dati: per ogni tabella presentata nello schema ER è stata creato uno schema che rappresenta la nostra base di dati.
 Avendo usato il pattern MVC, ogni tabella sarà collegata al proprio controller che si occuperà di gestire le chiamate CRUD preposte.
@@ -51,14 +51,14 @@ La gestione delle rotte, è stata implementata utilizzando la classe Router dell
 ![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/class_diagram.png)
 
 
-##Pattern utilizzati
+## Pattern utilizzati
 
 •	**Middleware**: Permette, all'interno delle rotte, di gestire l'autenticazione degli utenti tramite token JWT.
 •	**MVC**: Usato per gestire la struttura del backend.
 
 
 
-##Documentazione tecnica
+## Documentazione tecnica
 
 L'applicazione è avviabile nella sua interezza attraverso il comando docker-compose -f docker-compose.yaml up da lanciare nella root del progetto, e poi lanciando node server.js sempre dalla root di progetto. Nella versione di sviluppo vengono avviati i seguenti servizi:
 •	MySql: porta 7098
