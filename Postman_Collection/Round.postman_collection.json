@@ -21,7 +21,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/aste/prova/3",
+					"raw": "http://localhost:8080/api/aste/roundAsta/42",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -30,8 +30,8 @@
 					"path": [
 						"api",
 						"aste",
-						"prova",
-						"3"
+						"roundAsta",
+						"42"
 					]
 				}
 			},

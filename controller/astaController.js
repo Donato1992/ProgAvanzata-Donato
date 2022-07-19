@@ -170,7 +170,7 @@ const addProposta= async (req, res)=> {
         nuova_proposta:req.body.nuova_proposta
     }
     const proposta = await Asta.update(info, {where: {id: id_asta}})
-    res.status(200).send(proposta)
+    res.status(200).send(`Proposta Inserita nell'asta ${id_asta} di ${info.nuova_proposta}`)
 }
 
 //Statistiche che effettua un Admin in base all'intervallo di tempo
@@ -350,7 +350,7 @@ const inizioAsta = async (req, res) => {
         state:'in esecuzione'
     }
     let asta =await Asta.update(info, {where: {id: id}})
-    res.status(200).send(asta)
+    res.status(200).send("Asta Avviata")
 }
 
 
@@ -433,7 +433,7 @@ function tipologiaAsta(IDasta,offerta_vincente,tipo){
 function esecuzioneRound(tempo_round) {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve('Round Finito');
+        resolve('Round Finito e prezzo aggiornato');
       }, tempo_round);
     });
   }

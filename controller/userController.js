@@ -1,6 +1,6 @@
 const db = require ('../models')
 const jwt = require('jsonwebtoken');
-const { Op } = require("sequelize");
+const { Op, fn, col  } = require("sequelize");
 require('dotenv').config()
 
 // Mi importo i miei controller per la gestione del database
@@ -65,7 +65,7 @@ const InsertCredito = async (req, res) => {
 
     //Ricarico il conto con il nuovo wallet decodificato
     let ricarica =await DbUser.update(info, {where: {id: iduser_da_ricaricare}})
-    res.status(200).send(ricarica)
+    res.status(200).send(`Ricarica di ${importo_da_ricaricare} effettuata sull'utente ${iduser_da_ricaricare}`)
 
 }
 
@@ -100,7 +100,7 @@ const ScalaCredito = async (req, res) => {
     }
     //Aggiorno il conto dell'utente
     let scala_conto =await DbUser.update(info, {where: {id: data.dataValues.winner}})
-    res.status(200).send(scala_conto)
+    res.status(200).send(`I soldi sono stati prelevati dal conto del vincitore ID:${data.dataValues.winner}`)
 
 }
 
@@ -119,13 +119,14 @@ const StoricoAste =  async (req, res) => {
   const data = await Offerta.findAll({
     include: [{
       model: Asta,
-      as: 'Auction'
+      as: 'Auction',
+      where:{[Op.and]:[
+        {auctionTimeFinish:{[Op.gt]:dataTimeInizio}},
+        {auctionTimeFinish:{[Op.lt]:dataTimeFine}},
+    ]}
   }], where: {[Op.and]:[
-    //{UserID:req.user.utente.nome,},
-    {UserID:req.user.utente.id},
-    //RICORDATI CHE CON POSTMAN L'OROLOGIO E' INDIETRO DI DUE ORE QUINDI AL CREATEDAT DEVI AGGIUNGERE DUE ORE
-    {auctionTimeFinish:{[Op.gt]:dataTimeInizio}},
-    {auctionTimeFinish:{[Op.lt]:dataTimeFine}},
+    {UserID:req.user.utente.id}
+    
 ]}
       
       
