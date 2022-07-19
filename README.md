@@ -84,7 +84,7 @@ Durante il testing delle chiamate, al posto di /:idclasse inserire il numero id 
 | PUT    | Scalare Conto                                 | http://localhost:8080/api/aste/ScalaConto/:idasta						    | 200    |
 | GET    | Spesa Effettuata                              | http://localhost:8080/api/aste/spesaEffettuata                                                   | 200    |
 | GET    | Statistiche Asta                              | http://localhost:8080/api/aste/statisticheAsta                                                   | 200    |
-| GET    | Storico Periodo                               | hhttp://localhost:8080/api/aste/storico      						    | 200    | 
+| GET    | Storico Periodo                               | http://localhost:8080/api/aste/storico      						    | 200    | 
 | GET    | Credito Residuo                               | http://localhost:8080/api/aste/creditoResiduo                                                    | 200    | 
 | POST   | Vincita Asta             		         | http://localhost:8080/api/aste/vincitaAsta                                                       | 200    | 
 | GET    | Visualizza Stato Asta         	         | http://localhost:8080/api/aste/stateAsta                                                         | 200    |
