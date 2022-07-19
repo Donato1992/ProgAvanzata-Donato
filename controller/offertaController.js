@@ -24,34 +24,23 @@ const addOffertaToken = async (req, res) => {
         where:{id:idasta}
     })
     
-
-    console.log("VEDIAMO IL TIPO--->"+tipo.type)
+    //Verifico prima se l'asta posso farla cioè se è in esecuzione oppure no
     let return_info_stato=statoAsta(tipo.state)
-    console.log("VEDIAMO IL TIPO--->"+tipo.price_now)
-
-
-
+    
+    /* Vado a determinare se la tipologia di asta alla quale voglio fare l'offerta accetta oppure
+       no la mia offerta in modo tale da poter determinare le corrette regole del gioco */
 
     let return_tipo_asta=tipologiaAsta(tipo_di_asta.indexOf(tipo.type),tipo.price_now,req.body.price)
 
-    console.log("RISPOSTE-->"+return_info_stato.flag+"\n"+return_info_stato.risposta+"\n"+return_tipo_asta.flag+"\n"
-    +return_tipo_asta.risposta)
-
-
+    //Decodifico il Mio portafoglio
     const credito=jwt.verify(wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
         if (err) {
           return res.status(403).json("Token is not valid!");
         }
-  
-        // Qui Setto l'utente che ho codificato
-        //req.user = portafoglio;
-        console.log("DECRIPTO PORTAFOGLIO--->"+portafoglio.wallet)
         return portafoglio.wallet
       });
     
-
-    
-      console.log("DECRIPTO PORTAFOGLIO DUEEEE--->"+credito)
+    // Controllo se posso accettare l'offerta anche in base al credito residuo
     let data = {
         UserID: iduser,
         AstaID: idasta,
@@ -61,14 +50,14 @@ const addOffertaToken = async (req, res) => {
     {
         if (credito>=data.price)
         {
-            console.log("Mio Wallet-->"+wallet+data.UserID)
+            /*Offerta accettata e quindi aggiorno la mia offerta e il mio prezzo_now. Quest'ultimo è anche
+              l'ultima offerta "possibile" vincete */  
             aggiornaPrezzo(req.body.price,idasta)
             const offerta = await Offerta.create(data)
             res.status(200).send(offerta)
         }
         else
         {
-            console.log("Mio Wallet-->"+wallet)
             res.status(403).send("Credito Insufficiente")   
         }
     }
@@ -118,7 +107,6 @@ function statoAsta(tipo){
 
 function tipologiaAsta(tipo, prezzo, offerta){
     let answer
-    console.log("IL PREZZOOOO"+prezzo)
     switch (tipo) {
         case 0:
           if(offerta>prezzo)
@@ -162,17 +150,14 @@ function tipologiaAsta(tipo, prezzo, offerta){
 }
 
 async function aggiornaPrezzo(prezzo,astaID) {
-    console.log('calling');
+    
     let info={
         price_now:prezzo
     }
     await Asta.update(info, {where: {id: astaID}})
     
-    // expected output: "resolved"
   }
 
 module.exports = {
-    addOfferta,
-    getAllOfferta,
     addOffertaToken
 }

@@ -4,15 +4,18 @@ const jwt = require('jsonwebtoken');
 const axios = require('axios').default;
 require('dotenv').config()
 
-//Creao il Main del Controller
+// Mi importo i miei controller per la gestione del database
 const Asta= db.asta
 const User= db.user
 const Offerta= db.offer
 
 let answer_chiamata
 
-//Creazione Asta
+//Creazione di un Asta
 const addAsta=  async (req, res)=> {
+    
+    /* In questo caso mi vado ad istanziare due vettori che mi servono per far rispettare le tipologie e gli stati dll'asta
+       che un bid-creator può inserire*/
     let tipo_di_asta=["asta inglese","asta olandese","asta busta chiusa up","asta busta chiusa 2up"]
     let verify_stato=["non aperta","in esecuzione","terminata"]
     let flag=new Boolean(true)
@@ -27,8 +30,8 @@ const addAsta=  async (req, res)=> {
         2:"in esecuzione",
         3:"terminata",
     }
-    console.log('AGGIUNGO ASTACAZZOOO--->'+Object.keys(req.user.utente))
-    console.log("SONO DENTRO ADDASTA---->"+req.user.utente.id)
+    
+    //Informazioni dell'Asta da inserire per la creazione dell'asta
     let info = {
         title: req.body.title,
         type: req.body.type.toLowerCase(),
@@ -41,16 +44,15 @@ const addAsta=  async (req, res)=> {
         UserID: req.user.utente.id
         
     }
-    console.log("Vediamo--> "+tipo_di_asta)
-    console.log("Vediamo--> "+tipo_di_asta.includes(info.type.toLowerCase()))
-    console.log("Vediamo--> "+verify_stato.includes(info.state))
-    console.log('VEDIAMO LE INFOOOO'+info.title)
     
+    /* Adesso vado a verificare le informazioni o per lo meno le informazioni necessarie affinchè l'asta che si va
+       a creare rispetta i requisiti minimi. Quindi controllo se la tipologia dell'asta, è una di quelle consentite,
+       se lo stato dell'asta è tra quelle idonee e se la data di fine dell'asta non inferiore rispetto a quella di partenza */
     if (tipo_di_asta.includes(info.type.toLowerCase())&& verify_stato.includes(info.state))
     {
         
+        
         let return_info=controllaData(info.auctionTimeStart,info.auctionTimeFinish)
-        console.log("CONTROLLO DATE"+return_info.controllo)
         if(flag&&return_info.controllo)
         {
             const asta = await Asta.create(info)
@@ -63,6 +65,7 @@ const addAsta=  async (req, res)=> {
     }
     else
     {
+        
         if (tipo_di_asta.includes(info.type.toLowerCase()))
         {
             res.status(400).send(`Stato dell'Asta non Ammesso\n Sono ammessi solo questi tipi di stati\n${JSON.stringify(tipo_di_stato_accettati)}`)
@@ -73,17 +76,8 @@ const addAsta=  async (req, res)=> {
         }
     }
     
-    //console.log(asta)
 }
 
-
-//Ottenere una sola Asta
-const getAsta = async (req, res) => {
-    console.log("SONO DENTRO GETASTA")
-    let tipo = req.params.type
-    let asta =await Asta.findOne({where: {type: tipo}})
-    res.status(200).send(asta)
-}
 
 //Ottenere asta in base allo stato Asta
 const getStateAsta = async (req, res) => {
@@ -96,42 +90,17 @@ const getStateAsta = async (req, res) => {
 }
 
 
-//Update Asta
-const updateAsta = async (req, res) => {
-    let id = req.params.id
-    let asta =await Asta.update(req.body, {where: {id: id}})
-    res.status(200).send(asta)
-}
-
-//Cancella Un Asta tramite id
-const deleteAsta = async (req, res) => {
-    let id = req.params.id
-    await Asta.destroy({where: {id:id}})
-    res.status(200).send('Asta Cancellata')
-}
-
-
-//Ottenere la Pubblicazione
-const getAstaPubblicata = async (req, res) => {
-    let asta =await Asta.findAll({where: {published: true}})
-    res.status(200).send(asta)
-
-}
-
-
-// Relazione Uno a  Molti
-
+// Ottenere le offerte di un'asta aperta o meglio in esecuzione
 const getApertaAstaOfferta =  async (req, res) => {
 
-    let tipo_di_asta=["asta inglese","asta olandese","asta busta chiusa up","asta busta chiusa 2up"]
     const stato='in esecuzione'
-    console.log("MIO STATOOOO---->"+stato)
-
+    
+    /* Ora eseguo le query per tutte le tipologie di aste che il nostro "eventuale sito" di asta dovrà gestire.
+       Tali query vengono fatte attraverso le foreign key dell'asta sull'AstaID della tabella offers. In questo modo
+       otteniamo per ogni asta le proprie offerte eseguite */
     const data_inglese = await Asta.findAll({
         include: [{
             model: Offerta,
-            // Per Esempio as Bid è La chiave primaria dove fare il Join che è presente nel Index
-            // della cartella Model
             as: 'Offer'
         }],
         order:[
@@ -148,8 +117,6 @@ const getApertaAstaOfferta =  async (req, res) => {
     const data_olandese = await Asta.findAll({
         include: [{
             model: Offerta,
-            // Per Esempio as Bid è La chiave primaria dove fare il Join che è presente nel Index
-            // della cartella Model
             as: 'Offer'
         }],
         order:[
@@ -183,7 +150,7 @@ const getApertaAstaOfferta =  async (req, res) => {
 
 
 
-
+    // Ottenute le offerte per ogni tipologia di asta le metto insieme e le visualizzo
     let informazioni={
         asta_inglese:data_inglese,
         asta_olandese:data_olandese,
@@ -191,19 +158,11 @@ const getApertaAstaOfferta =  async (req, res) => {
         asta_busta_chiusa_2up:data_bustachiusa_2up
     }
 
-    
-
-    //console.log("VEDIAMO QUESTO-->"+Object.keys(data))
-    //let return_tipo_asta=tipologiaAsta(tipo_di_asta.indexOf(tipo.type))
-
-
-
-
-    //console.log(data)
     res.status(200).send(informazioni)
 
 }
 
+//Aggiungo una nuova proposta che nel nostro caso è un semplice offerta che presenta il banditore ai possibili acquirenti
 const addProposta= async (req, res)=> {
     const id_asta=req.params.ida
     
@@ -214,51 +173,14 @@ const addProposta= async (req, res)=> {
     res.status(200).send(proposta)
 }
 
-
-const prova2 =  async (req, res) => {
-
-    const tipo_asta= req.params.tipo
-    const dataTimeInizio=convertTZ(req.body.inizio)
-    const dataTimeFine=convertTZ(req.body.fine)  
-
-    let data = await Asta.findAll({
-        attributes: {
-            include: [
-              [fn('COUNT', col('Offer.id')), 'Conteggio'],
-            ]
-          },
-        include: [{
-            model: Offerta,
-            // Per Esempio as Bid è La chiave primaria dove fare il Join che è presente nel Index
-            // della cartella Model
-            as: 'Offer'
-        }],
-        where: {
-            [Op.and]:[
-                //{UserID:req.user.utente.nome,},
-                {type:tipo_asta},
-                {state:'terminata'},
-                //RICORDATI CHE CON POSTMAN L'OROLOGIO E' INDIETRO DI DUE ORE QUINDI AL CREATEDAT DEVI AGGIUNGERE DUE ORE
-                {auctionTimeFinish:{[Op.gt]:dataTimeInizio}},
-                {auctionTimeFinish:{[Op.lt]:dataTimeFine}},]
-        }
-        
-    })
-    console.log(data)
-    res.status(200).send(data)
-}
-
-
-
-//Statistiche Admin
-
+//Statistiche che effettua un Admin in base all'intervallo di tempo
 const statiStiche =  async (req, res) => {
 
-    
+    //Converto le date nel formato desiderato per la propria analisi
     const dataTimeInizio=convertTZ(req.body.inizio)
     const dataTimeFine=convertTZ(req.body.fine)
     
-
+    //Ottengo le tipologie di asta che abbiamo nella nostra tabella nel DB
     let tipologiaAsta= await Asta.findAll({
         attributes: 
                 
@@ -268,11 +190,14 @@ const statiStiche =  async (req, res) => {
 
             ,
     })
-    let array_res=[]
-    console.log("TIPOLOGIA ASTA--->"+Object.keys(tipologiaAsta[0].dataValues))
-    for (const indice in tipologiaAsta) {
-        console.log(`${tipologiaAsta[indice].dataValues.tipo} is at position ${indice}`)
+
     
+    let array_res=[]
+    
+    // Per ogni tipologia di asta  prendo le informazioni necessarie
+    for (const indice in tipologiaAsta) {
+        /* Estrapolo dalla tabella delle Aste il numero delle aste in base alla tipologia dell'asta filtrandole con quelle
+           aste che sono terminate e quindi possono essere soggette ad analisi. Natulamente in base al periodo di interesse*/
         tipo_asta=tipologiaAsta[indice].dataValues.tipo
         let numero_asta= await Asta.findAll({
             where:{[Op.and]:[
@@ -283,13 +208,17 @@ const statiStiche =  async (req, res) => {
                 {auctionTimeFinish:{[Op.gt]:dataTimeInizio}},
                 {auctionTimeFinish:{[Op.lt]:dataTimeFine}},]}
         })
-        console.log("Numero Aste--->"+Object.keys(numero_asta).length)
+        
         const numero_delle_aste=Object.keys(numero_asta).length
 
         let numero_partecipanti=[]
         let minValue=0
         let maxValue=0
         let medio=0
+
+        /** Adesso vado a prendere per ogni asta il numero dei partecipanti in modo tale da poter calcolare in minimo,
+         *  il massimo e la media dei partecipanti in base alla tipologia dell'asta
+         */
         for (const indice in numero_asta) {
             
         console.log(`${numero_asta[indice].id} is at position ${indice}`)
@@ -312,21 +241,21 @@ const statiStiche =  async (req, res) => {
             })
 
             
-
-            console.log("Veiamo Il Numero Partecipanti--->  "+Object.keys(data).length)
             numero_partecipanti.push(Object.keys(data).length)
+            
+            //Calcolo la media
             const average = (array) => array.reduce((a, b) => a + b) / array.length;
-            console.log("NUMERO MEDIO"+average(numero_partecipanti));
             medio= average(numero_partecipanti)
+
+            //Calcolo il valore massimo
             maxValue = Math.max(...numero_partecipanti);
-
-            console.log("Valore Massimo-->"+maxValue);
-
+            
+            //Calcolo il valore minimo
             minValue = Math.min(...numero_partecipanti);
 
-            console.log("Valore Minimo-->"+minValue);
         }
 
+        //Restituisco le mie statistiche
         let statistica= {
             Tipologia_Asta:tipo_asta,
             Numero_di_Aste:numero_delle_aste,
@@ -336,17 +265,103 @@ const statiStiche =  async (req, res) => {
 
         }
         array_res.push(statistica)
-        // Fine Codice Ottengo numero di Partecipanti
     }
-    console.log("Vediamo Array->")
-    //console.log(numero_partecipanti)
 
-    //console.log(numero_asta)
     res.status(200).send(array_res)
 }
 
+/** In questo caso si è deciso di fare un round decidendo il tempo (millisencondi) e il prezzo da aumentare in base alle due tipologie
+ * di aste, decidendo tali informazioni in input senza andarli a cercare nel DB. Inoltre con il tempo del Round si è scelto
+ * di ritardare il post in modo tale che durante il tempo di attesa si possono avere altre offerte.
+ * Ai fini del progetto si consiglia di utilizzare dei millisecondi piccolo [Nel mio caso ho utilizzato 5000 millisecondi]
+ */
+const roundAsta =  async (req, res) => {
+    console.log('INIZIO DEL ROUND');
+    const id_asta= req.params.ida
+    const tempo_round=req.body.tempo
+    const prezzo_round=req.body.prezzo_round
+    const result = await esecuzioneRound(tempo_round);
+    // Finito il tempo di atteza aggiorno il prezzo.
+    aggiornaPrezzoNow(id_asta,prezzo_round)
+    console.log(result);
+    res.status(200).send(result)
+}
+
+//Caso di Vincita dell'Asta
+/** Questa richiesta è stata fatta in quanto una volta che un asta finisce il suo tempo passa in terminata
+ *  e si assegna il vincitore. */
+const vincitaAsta= async (req, res)=> {
+    
+    //Ottengo la data e il tempo attuale per far terminare l'asta e assegnare il vincitore
+    const data_attuale= dataOdierna()
+
+    //Prendo tutte le aste che sono in esecuzione
+    const vincitore = await Asta.findAll({
+        where: {[Op.and]:[
+            {state:'in esecuzione'},
+            {auctionTimeFinish:{[Op.gt]:data_attuale}},
+            ]}
+    })
+
+    let elenco_vincitori={
+        
+    }
+
+    /** Adesso vado a cercare il vincitore in base alle tipologie delle aste. Come primo passo, si aggiorna lo stato
+     * dell'asta in esecuzione allo stato di terminata. Poi per le aste inglese ed olandese vado a cercare quell'utente
+     * che ha l'offerta pari al price_now perchè price_now rappresenta in queste due tipologie di aste l'ultima offerta
+     * accetta e siccome lo stato dell'asta è passata nello stato di terminata, sarà anche l'ultima offerta accettata e 
+     * di conseguenza quella vincente. Invece per le altre due tipologie di aste vado a cercare tra le offerte quelle 
+     * che rispettano le regole per assegnare il vincitore. Una volta fatto il controllo su quale è ll'offerta vincente,
+     * vado ad aggiornare la colonna winner inserendo l'ID del vincitore. Per uno sviluppo futuro possiamo prendere i 
+     * dati del vincitore in quanto possiamo la colonna winner è legata alla colonna dell'User attraverso la foreign key */ 
+
+    for (const indice in vincitore) {
+         
+        //Aggiorno lo stato dell'asta passandola nello stao di terminata
+        aggiornaStatoAsta(vincitore[indice].id)
+        
+        //Vado a cercare il vincitore
+        let risultato_vincitore= await cercoVincitoreAsta(vincitore[indice].id,vincitore[indice].price_now,vincitore[indice].type)
+        if(answer_chiamata==null){}
+        else
+        {
+            //Stabilisco il vincitore
+            let vincita={
+                tipo_asta:vincitore[indice].type,
+                vincitore:answer_chiamata.vincitore,
+                importo_vincita:answer_chiamata.price_now
+            }
+            elenco_vincitori=Object.assign(vincita)
+        }
+
+
+    }
+    res.status(200).send(`Ecco i Vincitori ${JSON.stringify(elenco_vincitori)}`)
+
+
+
+}
+
+//Questa chiamata serve solo per far partire l'asta facendola passare dallo stato di "non aperta" allo stato "in esecuzione"
+const inizioAsta = async (req, res) => {
+    let id = req.params.ida
+    let info={
+        state:'in esecuzione'
+    }
+    let asta =await Asta.update(info, {where: {id: id}})
+    res.status(200).send(asta)
+}
+
+
+/** 
+ * 
+ * DA QUESTA RIGA IN GIU' SONO PRESENTI LE FUNZIONI O LE CHIAMATE ASYNCRONE IN MODO TALE CHE LE OPERAZIONI QUI SOPRA
+ *                                      DESCRITTE POSSONO FUNZIONARE A DOVERE
+ * 
+ */
+
 function convertTZ(date) {
-    console.log("VEDIAMO LA DATA---->"+date)
     let dataPart=date.split(/[- :]/)
     dataPart[3]=Number(dataPart[3])+2
     console.log("PARTI-->"+dataPart[0]+dataPart[1]+dataPart[2]+dataPart[3]+dataPart[4]+dataPart[5])
@@ -396,7 +411,6 @@ function tipologiaAsta(IDasta,offerta_vincente,tipo){
         case 1:
             answer_chiamata=""
             answer=trovoVincitoreAstaIngleseOlandese(IDasta,offerta_vincente)
-            console.log("Sono NELL'ASTA OLANDESE")
           break;
         case 2:
             answer_chiamata=""
@@ -424,82 +438,11 @@ function esecuzioneRound(tempo_round) {
     });
   }
   
-  async function asyncCall() {
-    console.log('calling');
-    const result = await resolveAfter2Seconds();
-    console.log(result);
-    // expected output: "resolved"
-  }
-  
-  //asyncCall();
-  
-
-
-
-
-  const roundAsta =  async (req, res) => {
-    console.log('INIZIO DEL ROUND');
-    const id_asta= req.params.ida
-    const tempo_round=req.body.tempo
-    const prezzo_round=req.body.prezzo_round
-    const result = await esecuzioneRound(tempo_round);
-    aggiornaPrezzoNow(id_asta,prezzo_round)
-    console.log(result);
-    res.status(200).send(result)
-}
-
-
-
-
-
-const vincitaAsta= async (req, res)=> {
-    
-    //const data_attuale= dataOdierna()
-    const data_attuale= '2022-07-14 07:23:52'
-    console.log(data_attuale)
-    //Le Aste
-    const vincitore = await Asta.findAll({
-        where: {[Op.and]:[
-            {state:'in esecuzione'},
-            {auctionTimeFinish:{[Op.gt]:data_attuale}},
-            ]}
-    })
-
-    let elenco_vincitori={
-        
-    }
-
-    for (const indice in vincitore) {
-         
-        //console.log(`${vincitore[indice].price_now} is at position ${indice} con la simma di`)
-        aggiornaStatoAsta(vincitore[indice].id)
-        let risultato_vincitore= await cercoVincitoreAsta(vincitore[indice].id,vincitore[indice].price_now,vincitore[indice].type)
-        if(answer_chiamata==null){}
-        else
-        {
-            console.log("ORA CI SIAMO--------------->"+answer_chiamata.vincitore+"-"+answer_chiamata.price_now)
-            let vincita={
-                tipo_asta:vincitore[indice].type,
-                vincitore:answer_chiamata.vincitore,
-                importo_vincita:answer_chiamata.price_now
-            }
-            elenco_vincitori=Object.assign(vincita)
-        }
-        //console.log("VINCITOREEE-->"+risultato_vincitore.vincitore+"----"+risultato_vincitore.price_now)
-
-
-    }
-    res.status(200).send(`Ecco i Vincitori ${JSON.stringify(elenco_vincitori)}`)
-
-
-
-}
-
 
 function dataOdierna() {
     const today = new Date();
     const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
+    let mm = today.getMonth() + 1; // Il mese parte da 0
     let dd = today.getDate();
     let hour=today.getHours();
     let minute=today.getMinutes();
@@ -637,24 +580,8 @@ function dataOdierna() {
    
   }
 
-  //Update Asta
-const inizioAsta = async (req, res) => {
-    let id = req.params.ida
-    let info={
-        state:'in esecuzione'
-    }
-    let asta =await Asta.update(info, {where: {id: id}})
-    res.status(200).send(asta)
-}
-
 module.exports = {
     addAsta,
-    getAsta,
-    getAstaPubblicata,
-    getTutteAsta,
-    updateAsta,
-    deleteAsta,
-    getAstaOfferta,
     getStateAsta,
     getApertaAstaOfferta,
     addProposta,

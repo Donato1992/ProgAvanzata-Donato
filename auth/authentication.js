@@ -8,23 +8,14 @@ const db = require ('../models')
 const User= db.user
 const app = express();
 
-
+// Test generico per le API
 app.get('/api', (req, res) => {
   res.json({
-    message: 'Welcome to the API'
+    message: 'Test generico per le API'
   });
 });
 
 
-
-
-//verifico se il token è giusto
-const provaPost= async(req, res) => {
-      res.json({
-        message: 'Post created...',
-        nome: req.user
-      });
-    }
 
 
 //Qui vado a fare il Login Prendendo i dati dell'utente che è loggato
@@ -32,7 +23,6 @@ const getLogin=async (req, res) => {
   // Prendo L'utente
   //La proprietà Raw mi permette di avere un Json
   let utente =await User.findOne({where: {id: req.params.idacc}, raw:true})
-  console.log("Ruolo Preso"+utente.nome)
 
   //Log In tramite dove con Expires In andiamo a settare il tempo della sessione
   const token=jwt.sign({utente}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '240s' })
@@ -43,29 +33,7 @@ const getLogin=async (req, res) => {
 };
 
 
-//Verifica Token
-const verify = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, nome) => {
-      if (err) {
-        return res.status(403).json("Token Non Valido!");
-      }
-
-      // Qui Setto l'utente che ho codificato
-      req.user = nome;
-      next();
-    });
-  } else {
-    res.status(401).json("Non sei Autorizzato ad accedere a questa Area!");
-  }
-};
-
-
 //Verifica Operazioni per il Bid-Creator
-
 const verify_bid_creator= (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -75,14 +43,14 @@ const verify_bid_creator= (req, res, next) => {
         if (err) {
           return res.status(403).json("Token NON VALIDO!");
         }
-        console.log("VEDIAMO CHE RUOLO"+nome.utente.role)
+
         if (nome.utente.role!=='bid-creator')
         {
             return res.status(401).json("Lei non è Autorizzato a Questa Operazione");
         }
         
   
-        // Qui Setto l'utente che ho codificato
+        // Qui Setto l'utente che ho codificato Utilizzabile per i miei controller
         req.user = nome;
         next();
       });
@@ -92,8 +60,7 @@ const verify_bid_creator= (req, res, next) => {
   };
 
 
-  //Verifica utente Bid-Partecipant
-
+//Verifica utente Bid-Partecipant
 const verify_bid_partecipant= (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -103,14 +70,14 @@ const verify_bid_partecipant= (req, res, next) => {
         if (err) {
           return res.status(403).json("Token NON VALIDO!");
         }
-        console.log("VEDIAMO CHE RUOLO"+nome.utente.role)
+        
         if (nome.utente.role!=='bid-partecipant')
         {
             return res.status(401).json("Lei non è Autorizzato a Questa Operazione");
         }
         
   
-        // Qui Setto l'utente che ho codificato
+        // Qui Setto l'utente che ho codificato Utilizzabile per i miei controller
         req.user = nome;
         next();
       });
@@ -128,14 +95,14 @@ const verify_bid_partecipant= (req, res, next) => {
         if (err) {
           return res.status(403).json("Token NON VALIDO!");
         }
-        console.log("VEDIAMO CHE RUOLO"+nome.utente.role)
+        
         if (nome.utente.role!=='admin')
         {
             return res.status(401).json("Lei non è Autorizzato a Questa Operazione");
         }
         
   
-        // Qui Setto l'utente che ho codificato
+        // Qui Setto l'utente che ho codificato Utilizzabile per i miei controller
         req.user = nome;
         next();
       });
@@ -147,8 +114,6 @@ const verify_bid_partecipant= (req, res, next) => {
 
 module.exports = {
     getLogin,
-    provaPost,
-    verify,
     verify_bid_creator,
     verify_admin,
     verify_bid_partecipant
