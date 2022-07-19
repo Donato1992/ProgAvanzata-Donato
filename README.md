@@ -3,8 +3,8 @@
 L’applicazione permette agli utenti di utilizzare un sistema che consente di gestire delle aste. 
 
 
-1)Brugiavini Alessio
-2)Di Zinno Donato
+* Brugiavini Alessio
+* Di Zinno Donato
 
 
 Il lavoro è stato svolto totalmente a distanza per via della distanza geografica. Abbiamo comunicato tramite Microsoft Teams, sfruttando la condivisione schermo per lavorare in maniera più fluida. Tutto lo sviluppo è stato riportato sul repository di GitHub, come visibili dallo storico dei commits.
