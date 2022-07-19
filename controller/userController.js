@@ -18,7 +18,7 @@ const getCredito = async (req, res) => {
     //decodifico il mio wallet
     const credito=jwt.verify(wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
         if (err) {
-          return res.status(403).json("Token is not valid!");
+          return res.status(403).json("Token non valido");
         }
         return portafoglio.wallet
       });
@@ -47,7 +47,7 @@ const InsertCredito = async (req, res) => {
     //Decodifico il conto
     const credito=jwt.verify(utente_da_ricaricare.wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
         if (err) {
-          return res.status(403).json("Token is not valid!");
+          return res.status(403).json("Token non valido");
         }
 
         return portafoglio.wallet
@@ -85,7 +85,7 @@ const ScalaCredito = async (req, res) => {
     //Decodifico il credito
     const credito=jwt.verify(utente_da_scalare.wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
         if (err) {
-          return res.status(403).json("Token is not valid!");
+          return res.status(403).json("Token non valido!");
         }
   
         return portafoglio.wallet

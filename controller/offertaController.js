@@ -35,7 +35,7 @@ const addOffertaToken = async (req, res) => {
     //Decodifico il Mio portafoglio
     const credito=jwt.verify(wallet, process.env.ACCESS_TOKEN_WALLET, (err, portafoglio) => {
         if (err) {
-          return res.status(403).json("Token is not valid!");
+          return res.status(403).json("Token non valido!");
         }
         return portafoglio.wallet
       });
