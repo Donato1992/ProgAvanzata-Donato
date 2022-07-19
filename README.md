@@ -1,8 +1,11 @@
 # Progetto di Programmazione Avanzata 2022
 
 L’applicazione permette agli utenti di utilizzare un sistema che consente di gestire delle aste. 
--Brugiavini Alessio
--Di Zinno Donato
+
+
+1)Brugiavini Alessio
+2)Di Zinno Donato
+
 
 Il lavoro è stato svolto totalmente a distanza per via della distanza geografica. Abbiamo comunicato tramite Microsoft Teams, sfruttando la condivisione schermo per lavorare in maniera più fluida. Tutto lo sviluppo è stato riportato sul repository di GitHub, come visibili dallo storico dei commits.
 
@@ -14,23 +17,24 @@ Queste richieste interagiscono con degli attori interni, che sono: il framework 
 
 ![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/caso%20d%20uso%20.png)
 
-•	**Login**: permette di effettuare il login ad un dato utente. (Bid partecipant, Bid creator, Admin)
-•	**Search Auction**: permette di cercare un oggetto di interesse(Bid partecipant, Bid creator)
-•	**Place bid**: permette di piazzare un’offerta (Bid partecipant)
-•	**Check wallet**: permette di visualizzare il saldo corrente(Bid partecipant)
-•	**Post auction**: permette di creare una nuova asta( Bid creator)
-•	**Credit charge**: permette di ricaricare il credito di un dato utente (Admin)
-•	**Check auction statistics**: permette di controllare le statistiche delle aste (Admin)
-•	**Propose new purchase condition**: permette di proporre una nuova condizione di acquisto (Bid creator)
-•	**Auction history**: permette di vedere lo storico delle aste e quelle che si sono aggiudicate (Bid partecipant)
+*	**Login**: permette di effettuare il login ad un dato utente. (Bid partecipant, Bid creator, Admin)
+*	**Search Auction**: permette di cercare un oggetto di interesse(Bid partecipant, Bid creator)
+*	**Place bid**: permette di piazzare un’offerta (Bid partecipant)
+*	**Check wallet**: permette di visualizzare il saldo corrente(Bid partecipant)
+*	**Post auction**: permette di creare una nuova asta( Bid creator)
+*	**Credit charge**: permette di ricaricare il credito di un dato utente (Admin)
+*	**Check auction statistics**: permette di controllare le statistiche delle aste (Admin)
+*	**Propose new purchase condition**: permette di proporre una nuova condizione di acquisto (Bid creator)
+*	**Auction history**: permette di vedere lo storico delle aste e quelle che si sono aggiudicate (Bid partecipant)
 
 
 ## Schema ER Database
 
-Lo schema Entità Relazione del database progettato prevede 4 tabelle:
-•	**Users** : contente le informazioni di ogni utente
-•	**Auctions** : contenente le informazioni di un’asta
-•	**Offers** : contenente le informazioni sulle offerte
+Lo schema Entità Relazione del database progettato prevede 3 tabelle:
+
+1)	**Users** : contente le informazioni di ogni utente
+2)	**Auctions** : contenente le informazioni di un’asta
+3)	**Offers** : contenente le informazioni sulle offerte
 
 ![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/DB.png)
 
