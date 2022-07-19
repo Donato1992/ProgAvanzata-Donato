@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "3acf1cdb-c1c0-4e0b-a409-62b220922f2e",
+		"name": "Ricaricare Conto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ricarica",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjEsIm5vbWUiOiJEb25hdG8iLCJjb2dub21lIjoiRGkgWmlubm8iLCJlbWFpbCI6ImRpemlubm9AZ21haWwuY29tIiwid2FsbGV0IjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjNZV3hzWlhRaU9qRXdNQ3dpYVdGMElqb3hOalUzT1RFek1UYzRmUS5GN3B6aV9rR185Szh5VkQzdGJjWkJ2ejA0dS1UR0dLWWlPTkVLQ1BXSlhNIiwicm9sZSI6ImFkbWluIiwiY3JlYXRlZEF0IjoiMjAyMi0wNy0xM1QxNToxNzo0NC4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMi0wNy0xM1QxNToxNzo0NC4wMDBaIn0sImlhdCI6MTY1NzkxMzc0OCwiZXhwIjoxNjU3OTEzOTg4fQ.Y3vGRdgNXj1fT9dUlVi1STExMD1w5NFOiq2p4Nb-j_4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ricarica\":50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/ricarica/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"ricarica",
+						"3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,31 @@
+{
+	"info": {
+		"_postman_id": "aeb2c6a2-1e51-4d90-9ef9-3b315c2daab0",
+		"name": "Visualizzare rilancia Aste Aprte",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Aste Aperte Rilanci",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/getApertaAstaOfferta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"getApertaAstaOfferta"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

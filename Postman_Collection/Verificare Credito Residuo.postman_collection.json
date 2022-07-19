@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "ee3375b4-2d05-4292-9700-5a421cd4bf70",
+		"name": "Verificare Credito Residuo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "credito residuo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjMsIm5vbWUiOiJNYXNzaW1vIiwiY29nbm9tZSI6IlB1bnRhdm8iLCJlbWFpbCI6InB1bnRhdGFtYXhAZ21haWwuY29tIiwid2FsbGV0IjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjNZV3hzWlhRaU9qSXdNQ3dpYVdGMElqb3hOalUzT1RFek9UQTFmUS5KUWJjRW9ZY3Z6czJWeTMtejZsaFMyS2Rlc1RoX016VlBCWGRDeHdfMlVRIiwicm9sZSI6ImJpZC1wYXJ0ZWNpcGFudCIsImNyZWF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MjA6MTEuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMTVUMTk6Mzg6MjUuMDAwWiJ9LCJpYXQiOjE2NTc5MTM5MTMsImV4cCI6MTY1NzkxNDE1M30.AvutwtMyJpDUxmo4ZYArqqEzFnsc0bkrptqoZzKuXOo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/creditoResiduo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"creditoResiduo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

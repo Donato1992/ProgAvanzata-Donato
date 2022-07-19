@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "867f24a4-aa29-4c72-971b-f08706aa26f5",
+		"name": "Storico ad Intervallo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "storico",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjMsIm5vbWUiOiJNYXNzaW1vIiwiY29nbm9tZSI6IlB1bnRhdm8iLCJlbWFpbCI6InB1bnRhdGFtYXhAZ21haWwuY29tIiwid2FsbGV0IjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjNZV3hzWlhRaU9qSXdNQ3dpYVdGMElqb3hOalUzT1RFek9UQTFmUS5KUWJjRW9ZY3Z6czJWeTMtejZsaFMyS2Rlc1RoX016VlBCWGRDeHdfMlVRIiwicm9sZSI6ImJpZC1wYXJ0ZWNpcGFudCIsImNyZWF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MjA6MTEuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMTVUMTk6Mzg6MjUuMDAwWiJ9LCJpYXQiOjE2NTc5MTYyOTksImV4cCI6MTY1NzkxNjUzOX0.kf5wXTH91_Tobx7sXla2Jf9h8dh3duRMY_zMTEbqK7g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inizio\":\"2022-07-15 20:18:26\",\n    \"fine\":\"2022-07-15 20:45:26\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/storico",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"storico"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "7a59fcad-47f6-4130-9856-d71cb659cac5",
+		"name": "Visualizza Asta in base allo stato",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Stato Aste",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/stateAsta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"stateAsta"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

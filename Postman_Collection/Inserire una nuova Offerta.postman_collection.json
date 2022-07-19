@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "6188e02e-a4a6-461a-beac-8cf8ec1d61db",
+		"name": "Inserire una nuova Offerta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inserire Una Nuova Offerta per una determinata Asta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accedo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjMsIm5vbWUiOiJNYXNzaW1vIiwiY29nbm9tZSI6IlB1bnRhdm8iLCJlbWFpbCI6InB1bnRhdGFtYXhAZ21haWwuY29tIiwid2FsbGV0IjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjNZV3hzWlhRaU9qUXdMQ0pwWVhRaU9qRTJOVGM1TVRnMk9UUjkuTm01WTZFX2s3M2ZBWTY1OWtxUTJjX0ZUTVZ2ME90bXpGVHAyWERiX2VyOCIsInJvbGUiOiJiaWQtcGFydGVjaXBhbnQiLCJjcmVhdGVkQXQiOiIyMDIyLTA3LTEzVDE1OjIwOjExLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTA3LTE1VDIwOjU4OjE0LjAwMFoifSwiaWF0IjoxNjU4MDczMTk3LCJleHAiOjE2NTgwNzM0Mzd9.V-p8H_JfYymgI5LZsrbzslQAD8Tv1M8Qs84ddq4UkMk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"price\":34\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/addOffertaToken/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"addOffertaToken",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "4ac5cdec-367c-4290-8a3f-469f6c68b20d",
+		"name": "Inserire Una Nuova Proposta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nuova Proposta",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjIsIm5vbWUiOiJBbGVzc2lvIiwiY29nbm9tZSI6IkJydWdpYXZpbmkiLCJlbWFpbCI6ImFsZXNzaW9iQGdtYWlsLmNvbSIsIndhbGxldCI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUozWVd4c1pYUWlPbnNpY0c5eWRHRm1iMmRzYVc4aU9qRXdNSDBzSW1saGRDSTZNVFkxTnprd01UZzVNWDAudEs0UF9UMkVvbGNpaVQ4eUwyRU9ZWVZqT2JlQjFlaFBtVFc5SGZWRDhmbyIsInJvbGUiOiJiaWQtY3JlYXRvciIsImNyZWF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MTk6MDguMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMTNUMTU6MTk6MDguMDAwWiJ9LCJpYXQiOjE2NTc5MDk1NDAsImV4cCI6MTY1NzkwOTc4MH0.VNfZmgGbBqEyInj55WFrQR41q1MpYDYnFRtBPYgZjns",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nuova_proposta\": \"Compra subito a 100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/addProposta/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"addProposta",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

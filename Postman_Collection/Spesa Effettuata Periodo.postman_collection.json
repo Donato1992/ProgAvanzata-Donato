@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "54111219-da7a-48ea-8c24-1d02ea32562e",
+		"name": "Spesa Effettuata Periodo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spesa Effettuata Periodo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dGVudGUiOnsiaWQiOjMsIm5vbWUiOiJNYXNzaW1vIiwiY29nbm9tZSI6IlB1bnRhdm8iLCJlbWFpbCI6InB1bnRhdGFtYXhAZ21haWwuY29tIiwid2FsbGV0IjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjNZV3hzWlhRaU9qUXdMQ0pwWVhRaU9qRTJOVGM1TVRnMk9UUjkuTm01WTZFX2s3M2ZBWTY1OWtxUTJjX0ZUTVZ2ME90bXpGVHAyWERiX2VyOCIsInJvbGUiOiJiaWQtcGFydGVjaXBhbnQiLCJjcmVhdGVkQXQiOiIyMDIyLTA3LTEzVDE1OjIwOjExLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTA3LTE1VDIwOjU4OjE0LjAwMFoifSwiaWF0IjoxNjU3OTY2ODQyLCJleHAiOjE2NTc5NjcwODJ9.ZlvWeRVHUU0HAqeG_vVD_DhnULUo4Jb8be0YxQu_ddg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inizio\":\"2022-07-15 21:17:26\",\n    \"fine\":\"2022-07-16 21:45:26\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/spesaEffettuata",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"spesaEffettuata"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

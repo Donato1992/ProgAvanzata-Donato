@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "06b8914c-05ce-4388-80cd-9a0c141fe237",
+		"name": "Round",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "RoundAsta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tempo\":5000,\n    \"prezzo_round\":5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/aste/prova/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"prova",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

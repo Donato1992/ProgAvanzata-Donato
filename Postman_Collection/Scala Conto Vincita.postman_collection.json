@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "ef735f74-ebdd-414b-a22a-ce104eaee847",
+		"name": "Scala Conto Vincita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21680292"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/login/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"login",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scala Conto per la Vincita",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "accesso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/aste/ScalaConto/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"aste",
+						"ScalaConto",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
