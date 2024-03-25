@@ -3,7 +3,6 @@
 L’applicazione permette agli utenti di utilizzare un sistema che consente di gestire delle aste. 
 
 
-* Brugiavini Alessio
 * Di Zinno Donato
 
 
@@ -15,7 +14,7 @@ Tramite il diagramma “Use case” sono stati modellati i requisiti richiesti n
 A sinistra del diagramma ci sono due tipologie di utenti: **Bid partecipant** e **Bid creator** (estensione dell’user) e **Admin**.
 Queste richieste interagiscono con degli attori interni, che sono: il framework NodeJS, la libreria Express e Sequelize, un ORM di Nodejs,  e il database MySQL.
 
-![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/caso%20d%20uso%20.png)
+![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato/blob/main/Img/caso%20d%20uso%20.png)
 
 *	**Login**: permette di effettuare il login ad un dato utente. (Bid partecipant, Bid creator, Admin)
 *	**Search Auction**: permette di cercare un oggetto di interesse(Bid partecipant, Bid creator)
@@ -36,7 +35,7 @@ Lo schema Entità Relazione del database progettato prevede 3 tabelle:
 2)	**Auctions** : contenente le informazioni di un’asta
 3)	**Offers** : contenente le informazioni sulle offerte
 
-![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/DB.png)
+![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato/blob/main/Img/DB.png)
 
 
 ## MySql
@@ -52,7 +51,7 @@ Prima di andare a strutturare il backend Node, Express, Postman abbiamo definito
 Avendo usato il pattern MVC, ogni tabella sarà collegata al proprio controller che si occuperà di gestire le chiamate CRUD preposte.
 La gestione delle rotte, è stata implementata utilizzando la classe Router della libreria express, andando a risolvere le richieste attraverso il Service. Le rotte fanno utilizzo del pattern Middleware per gestire l'autenticazione degli utenti tramite token JWT.
 
-![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato-Alessio/blob/main/Img/class_diagram.png)
+![Alt Text](https://github.com/Donato1992/ProgAvanzata-Donato/blob/main/Img/class_diagram.png)
 
 
 ## Pattern utilizzati
